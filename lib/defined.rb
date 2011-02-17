@@ -19,8 +19,8 @@ module Defined
       set_trace_func method(:trace_function).to_proc
     end
 
-    def definition?(event, method, klass, keyword_type, method_type)
-      event == keyword_type || (event == method_type && ((method == :new && klass.is_a?(Module)) || method.to_s =~ /^(class|instance|module)_eval$/))
+    def definition?(event, method, klass, keyword_event, method_event)
+      event == keyword_event || (event == method_event && ((method == :new && klass.is_a?(Module)) || method.to_s =~ /^(class|instance|module)_eval$/))
     end
 
     def start?(event, method, klass)
