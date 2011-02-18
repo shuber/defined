@@ -39,16 +39,16 @@ class DefinedTest < Test::Unit::TestCase
     assert Mock.called
   end
 
-  def test_should_match_start?
+  def test_should_match_definition_start?
   end
 
-  def test_should_not_match_start?
+  def test_should_not_match_definition_start?
   end
 
-  def test_should_match_end?
+  def test_should_match_definition_end?
   end
 
-  def test_should_not_match_end?
+  def test_should_not_match_definition_end?
   end
 
   def test_should_not_match_end_without_start

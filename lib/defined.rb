@@ -11,10 +11,6 @@ module Defined
       @definitions ||= []
     end
 
-    def end?(event, method, klass)
-      !definitions.empty? && definition?(event, method, klass, 'end', 'c-return')
-    end
-
     def included(mod)
       set_trace_func method(:trace_function).to_proc
     end
@@ -23,14 +19,18 @@ module Defined
       event == keyword_event || (event == method_event && ((method == :new && klass.is_a?(Module)) || method.to_s =~ /^(class|instance|module)_eval$/))
     end
 
-    def start?(event, method, klass)
+    def definition_start?(event, method, klass)
       definition?(event, method, klass, 'class', 'c-call')
     end
 
+    def definition_end?(event, method, klass)
+      !definitions.empty? && definition?(event, method, klass, 'end', 'c-return')
+    end
+
     def trace_function(event, file, line, method, binding, klass)
-      if start?(event, method, klass)
+      if definition_start?(event, method, klass)
         definitions << binding.eval('self')
-      elsif end?(event, method, klass)
+      elsif definition_end?(event, method, klass)
         object = definitions.pop
         method ||= object.class.to_s.downcase.to_sym
         object.defined(file, line, method) if object.respond_to?(:defined)
