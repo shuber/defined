@@ -11,10 +11,6 @@ module Defined
       @definitions ||= []
     end
 
-    def included(mod)
-      set_trace_func method(:trace_function).to_proc
-    end
-
     def definition?(event, method, klass, keyword_event, method_event)
       event == keyword_event || (event == method_event && ((method == :new && klass.is_a?(Module)) || method.to_s =~ /^(class|instance|module)_eval$/))
     end
@@ -25,6 +21,10 @@ module Defined
 
     def definition_end?(event, method, klass)
       !definitions.empty? && definition?(event, method, klass, 'end', 'c-return')
+    end
+
+    def included(mod)
+      set_trace_func method(:trace_function).to_proc
     end
 
     def trace_function(event, file, line, method, binding, klass)
