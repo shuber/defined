@@ -10,7 +10,30 @@ Adds a <tt>Module.defined</tt> callback that is called whenever a class or modul
 
 == Usage
 
-Coming soon...
+  class User
+    def self.defined(file, line, method)
+      puts "  defined by #{file}:#{line} with #{method}"
+    end
+
+    puts 'in original class definition'
+  end
+
+  User.class_eval do
+    puts 'in class_eval'
+  end
+
+  class User
+    puts 'in class definition again'
+  end
+
+Outputs
+
+  in original class definition
+    defined by /tmp/untitled.rb:1 with class
+  in class_eval
+    defined by /tmp/untitled.rb:9 with class_eval
+  in class definition again
+    defined by /tmp/untitled.rb:13 with class
 
 
 == Patches and pull requests
