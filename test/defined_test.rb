@@ -1,19 +1,42 @@
 require 'test_helper'
 
 class DefinedTest < Test::Unit::TestCase
+  module TestMethods
+    def called
+      @called
+    end
+
+    def defined(file, line, method)
+      @called = true
+    end
+  end
+
+  module Mock
+    extend TestMethods
+  end
+
   def test_should_call_defined_when_module_is_defined
+    assert Mock.called
   end
 
   def test_should_call_defined_when_module_is_defined_with_new
+    mod = Module.new { extend TestMethods }
+    assert mod.called
   end
 
   def test_should_call_defined_when_module_is_defined_with_class_eval
+    Mock.class_eval { @called = false }
+    assert Mock.called
   end
 
   def test_should_call_defined_when_module_is_defined_with_instance_eval
+    Mock.instance_eval { @called = false }
+    assert Mock.called
   end
 
   def test_should_call_defined_when_module_is_defined_with_module_eval
+    Mock.module_eval { @called = false }
+    assert Mock.called
   end
 
   def test_should_match_start?
