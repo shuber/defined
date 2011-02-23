@@ -45,7 +45,7 @@ Calls <tt>Module#defined</tt> whenever a class or module is defined or redefined
   even works in Class.new
     defined by /tmp/untitled.rb:17 with initialize
 
-===== Note the <tt>method</tt> in the last example - <tt>initialize</tt> NOT <tt>new</tt>
+==== Note the <tt>method</tt> in the last example - <tt>initialize</tt> NOT <tt>new</tt>
 
 
 == Patches and pull requests
