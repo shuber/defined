@@ -1,6 +1,6 @@
 = defined
 
-Adds a <tt>Module.defined</tt> callback that is called whenever a class or module is defined or redefined
+Calls <tt>Module.defined</tt> whenever a class or module is defined or redefined
 
 
 == Installation
@@ -26,7 +26,15 @@ Adds a <tt>Module.defined</tt> callback that is called whenever a class or modul
     puts 'in class definition again'
   end
 
-Outputs
+  Class.new do
+    def self.defined(file, line, method)
+      puts "  defined by #{file}:#{line} with #{method}"
+    end
+
+    puts 'even works in Class.new'
+  end
+
+=== Outputs
 
   in original class definition
     defined by /tmp/untitled.rb:1 with class
@@ -34,6 +42,10 @@ Outputs
     defined by /tmp/untitled.rb:9 with class_eval
   in class definition again
     defined by /tmp/untitled.rb:13 with class
+  even works in Class.new
+    defined by /tmp/untitled.rb:17 with initialize
+
+===== Note the <tt>method</tt> in the last example - <tt>initialize</tt> NOT <tt>new</tt>
 
 
 == Patches and pull requests

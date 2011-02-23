@@ -93,4 +93,7 @@ class DefinedTest < Test::Unit::TestCase
 
   def test_trace_function_should_remove_definition
   end
+
+  def test_trace_function_should_do_nothing
+  end
 end
