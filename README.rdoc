@@ -1,6 +1,6 @@
 = defined
 
-Calls <tt>Module.defined</tt> whenever a class or module is defined or redefined
+Calls <tt>Module#defined</tt> whenever a class or module is defined or redefined
 
 
 == Installation

@@ -1,4 +1,4 @@
-# Calls <tt>Module.defined</tt> whenever a class or module is defined or redefined
+# Calls <tt>Module#defined(file, line, method)</tt> whenever a class or module is defined or redefined
 module Defined
   autoload :Version, 'defined/version'
 
@@ -33,6 +33,8 @@ module Defined
         definition?(event, method, klass, 'class', 'c-call')
       end
 
+      # Checks if the event is the end of a class or module definition, and if so
+      # it calls <tt>Module#defined(file, line, method)</tt> if implemented
       def trace_function(event, file, line, method, binding, klass)
         if definition_start?(event, method, klass)
           definitions << binding.eval('self')
