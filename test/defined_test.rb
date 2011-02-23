@@ -17,6 +17,11 @@ class DefinedTest < Test::Unit::TestCase
     extend TestMethods
   end
 
+  def test_should_not_call_defined_unless_implemented
+    mod = Module.new
+    assert !mod.respond_to?(:defined)
+  end
+
   def test_should_call_defined_when_module_is_defined
     assert Mock.called
   end
