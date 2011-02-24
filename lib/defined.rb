@@ -1,4 +1,4 @@
-# Calls <tt>Module#defined(file, line, method)</tt> whenever a class or module is defined or redefined
+# Calls <tt>Module#defined(file, line, method)</tt> after a class or module has been defined or redefined
 module Defined
   autoload :Version, 'defined/version'
 

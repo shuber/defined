@@ -41,7 +41,7 @@ Calls <tt>Module#defined</tt> after a class or module has been defined or redefi
   in Class.new
     defined by /tmp/untitled.rb:17 with initialize
 
-==== Note the <tt>method</tt> in the last example - <tt>initialize</tt> NOT <tt>new</tt>
+==== Note the <tt>method</tt> in the last example is <tt>initialize</tt> NOT <tt>new</tt>
 
 
 == Patches and pull requests
