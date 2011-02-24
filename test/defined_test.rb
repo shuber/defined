@@ -17,19 +17,68 @@ class DefinedTest < Test::Unit::TestCase
     extend TestMethods
   end
 
-  def test_should_match_definition_start?
+  def test_should_match_definition_start_with_keyword
+    assert Defined.send(:definition_start?, 'class', false, false)
   end
 
-  def test_should_not_match_definition_start?
+  def test_should_not_match_definition_start_with_wrong_keyword
+    assert !Defined.send(:definition_start?, 'wrong_keyword', :class_eval, false)
   end
 
-  def test_should_match_definition_end?
+  def test_should_match_definition_start_with_method
+    assert Defined.send(:definition_start?, 'c-call', :class_eval, false)
   end
 
-  def test_should_not_match_definition_end?
+  def test_should_not_match_definition_start_with_normal_method
+    assert !Defined.send(:definition_start?, 'c-call', :normal_method, false)
+  end
+
+  def test_should_match_definition_start_with_initialize
+    assert Defined.send(:definition_start?, 'c-call', :initialize, Module.new)
+  end
+
+  def test_should_not_match_definition_start_with_initialize_if_not_called_on_module_or_class
+    assert Defined.send(:definition_start?, 'c-call', :initialize, Dummy)
+  end
+
+  def test_should_match_definition_end_with_keyword
+    with_dummy_definition do
+      assert Defined.send(:definition_end?, 'end', false, false)
+    end
+  end
+
+  def test_should_not_match_definition_end_with_wrong_keyword
+    with_dummy_definition do
+      assert !Defined.send(:definition_end?, 'wrong_keyword', :class_eval, false)
+    end
+  end
+
+  def test_should_match_definition_end_with_method
+    with_dummy_definition do
+      assert Defined.send(:definition_end?, 'c-return', :class_eval, false)
+    end
+  end
+
+  def test_should_not_match_definition_end_with_normal_method
+    with_dummy_definition do
+      assert !Defined.send(:definition_end?, 'c-return', :normal_method, false)
+    end
+  end
+
+  def test_should_match_definition_end_with_initialize
+    with_dummy_definition do
+      assert Defined.send(:definition_end?, 'c-return', :initialize, Module.new)
+    end
+  end
+
+  def test_should_not_match_definition_end_with_initialize_if_not_called_on_module_or_class
+    with_dummy_definition do
+      assert Defined.send(:definition_end?, 'c-return', :initialize, Dummy)
+    end
   end
 
   def test_should_not_match_end_without_start
+    assert !Defined.send(:definition_end?, 'end', false, false)
   end
 
   def test_method_should_be_class_or_module_when_defined_with_keywords
@@ -62,4 +111,12 @@ class DefinedTest < Test::Unit::TestCase
       end
     end
   end
+
+  protected
+
+    def with_dummy_definition
+      Defined.definitions << Dummy
+      yield
+      Defined.definitions.pop
+    end
 end

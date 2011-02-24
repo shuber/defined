@@ -7,12 +7,12 @@ module Defined
       set_trace_func method(:trace_function).to_proc
     end
 
-    protected
+    # An array of classes and modules that are currently being defined
+    def definitions
+      @definitions ||= []
+    end
 
-      # An array of classes and modules that are currently being defined
-      def definitions
-        @definitions ||= []
-      end
+    protected
 
       def definition?(event, method, klass, keyword_event, method_event)
         event == keyword_event || (event == method_event && definition_method?(method, klass))
