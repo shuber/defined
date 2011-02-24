@@ -12,8 +12,8 @@ Gem::Specification.new do |s|
   s.date     = Date.today
   s.platform = Gem::Platform::RUBY
 
-  s.summary     = ':defined callback for classes and modules'
-  s.description = 'Adds a Module.defined callback that is called whenever a class or module is defined or redefined'
+  s.summary     = 'Calls Module#defined whenever a class or module is (re)defined'
+  s.description = 'Calls Module#defined whenever a class or module is defined or redefined'
 
   s.author   = 'Sean Huber'
   s.email    = 'shuber@huberry.com'
