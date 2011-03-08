@@ -104,10 +104,12 @@ class DefinedTest < Test::Unit::TestCase
   %w(class instance module).each do |prefix|
     %w(eval exec).each do |suffix|
       method_name = [prefix, suffix].join('_').to_sym
-      define_method "test_should_call_defined_when_module_is_defined_with_#{method_name}" do
-        Mock.send(method_name) { @called = false }
-        assert Mock.called
-        assert_equal method_name, Mock.method
+      if respond_to?(method_name)
+        define_method "test_should_call_defined_when_module_is_defined_with_#{method_name}" do
+          Mock.send(method_name) { @called = false }
+          assert Mock.called, "Mock.defined was not called after calling #{method_name}"
+          assert_equal method_name, Mock.method
+        end
       end
     end
   end

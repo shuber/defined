@@ -37,7 +37,7 @@ module Defined
       # it calls <tt>Module#defined(file, line, method)</tt> if implemented
       def trace_function(event, file, line, method, binding, klass)
         if definition_start?(event, method, klass)
-          definitions << binding.eval('self')
+          definitions << eval('self', binding)
         elsif definition_end?(event, method, klass)
           object = definitions.pop
           method ||= object.class.name.downcase.to_sym
