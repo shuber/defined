@@ -97,7 +97,7 @@ class DefinedTest < Test::Unit::TestCase
 
   def test_should_call_defined_when_module_is_defined_with_new
     mod = Module.new { extend TestMethods }
-    assert mod.called
+    assert mod.called, 'Mock.defined was not called after calling Module.new'
     assert_equal :initialize, mod.method
   end
 
