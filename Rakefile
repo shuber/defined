@@ -2,17 +2,17 @@ require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
 
-desc 'Default: run unit tests.'
+desc 'Default: run unit tests'
 task :default => :test
 
-desc 'Test the defined gem.'
+desc 'Test the defined gem'
 Rake::TestTask.new(:test) do |t|
   t.libs += ['lib', 'test']
   t.pattern = 'test/**/*_test.rb'
   t.verbose = true
 end
 
-desc 'Generate documentation for the defined gem.'
+desc 'Generate documentation for the defined gem'
 Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title    = 'defined'
