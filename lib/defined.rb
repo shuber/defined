@@ -46,5 +46,3 @@ module Defined
       end
   end
 end
-
-Module.send(:include, Defined)
