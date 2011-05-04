@@ -17,6 +17,14 @@ class DefinedTest < Test::Unit::TestCase
     extend TestMethods
   end
 
+  def test_enabled_toggle
+    assert Defined.enabled?
+    Defined.disable!
+    assert !Defined.enabled?
+    Defined.enable!
+    assert Defined.enabled?
+  end
+
   def test_should_match_definition_start_with_keyword
     assert Defined.send(:definition_start?, 'class', false, false)
   end

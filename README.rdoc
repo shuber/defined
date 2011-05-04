@@ -2,6 +2,8 @@
 
 Calls <tt>Module#defined</tt> after a class or module has been defined or redefined
 
+<b>Note</b>: relies on <tt>{Kernel#set_trace_func}[http://www.ruby-doc.org/core/classes/Kernel.html#M001430]</tt>
+
 
 == Installation
 
@@ -9,6 +11,8 @@ Calls <tt>Module#defined</tt> after a class or module has been defined or redefi
 
 
 == Usage
+
+  Defined.enable!
 
   class User
     def self.defined(file, line, method)

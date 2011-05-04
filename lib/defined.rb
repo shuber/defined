@@ -3,8 +3,18 @@ module Defined
   autoload :Version, 'defined/version'
 
   class << self
-    def included(mod) # :nodoc:
+    def disable!
+      set_trace_func nil
+      @enabled = false
+    end
+
+    def enable!
       set_trace_func method(:trace_function).to_proc
+      @enabled = true
+    end
+
+    def enabled?
+      @enabled ||= false
     end
 
     # An array of classes and modules that are currently being defined
@@ -46,5 +56,3 @@ module Defined
       end
   end
 end
-
-Module.send(:include, Defined)
